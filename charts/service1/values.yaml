@@ -16,7 +16,6 @@ resources:
   requests:
     cpu: 1
     mem: 512Mi
-
-  limit:
+  limits:
     cpu: 10m
     mem: 10Mi
