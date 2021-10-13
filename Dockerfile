@@ -4,6 +4,6 @@ ARG service
 
 WORKDIR /workspace
 
-COPY ${service} /workspace/${service}
+COPY ${service}/${service} /workspace/${service}
 
 CMD [ "./${service}" ]
