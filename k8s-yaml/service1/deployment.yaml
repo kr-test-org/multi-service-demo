@@ -10,7 +10,7 @@ spec:
     matchLabels:
       app.kubernetes.io/name: demo
       app.kubernetes.io/instance: service1
-  replicas: 1
+  replicas: 2
   template:
     metadata: 
       labels:
@@ -25,5 +25,5 @@ spec:
             - /workspace/service1
           ports:
             - protocol: TCP
-              containerPort: 20220
+              containerPort: 20221
      
