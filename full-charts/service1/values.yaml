@@ -6,7 +6,7 @@ registryConf: ""
 imagePullSecretsName: "service1-registry-secret"
 
 image:
-  repository: "ccr.ccs.tencentyun.com/koderover-public/service1"
+  repository: "ccr.ccs.tencentyun.com/koderover-public/service_1"
   tag: "latest"
 
 resources:
