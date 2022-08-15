@@ -10,7 +10,7 @@ spec:
     matchLabels:
       app.kubernetes.io/name: demo
       app.kubernetes.io/instance: service1
-  replicas: 2
+  replicas: 1
   template:
     metadata: 
       labels:
@@ -19,11 +19,15 @@ spec:
     spec:
       containers:
         - name: service1
-          image: ccr.ccs.tencentyun.com/koderover-public/service1:latest
+          image: koderover.tencentcloudcr.com/koderover-demo/service1:latest
           imagePullPolicy: Always 
           command:
             - /workspace/service1
           ports:
             - protocol: TCP
               containerPort: 20221
+          resources:
+            limits:
+              memory: 50Mi
+              cpu: 50m
      
