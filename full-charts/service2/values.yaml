@@ -1,5 +1,5 @@
 fullnameOverride: service2
-replicaCount: 1
+replicaCount: 2
 port: 20222
 
 imagePullSecretsName: "default-registry-secret"
