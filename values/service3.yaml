@@ -14,6 +14,6 @@ resources:
     mem: 10Mi
 
   limits:
-    cpu: 20m
+    cpu: 30m
     mem: 20Mi
 
