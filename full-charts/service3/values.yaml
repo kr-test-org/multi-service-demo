@@ -1,12 +1,12 @@
 fullnameOverride: service3
 replicaCount: 1
-port: 20223
+port: 22222
 
 imagePullSecretsName: "default-registry-secret"
 
 image:
   repository: "ccr.ccs.tencentyun.com/koderover-public/service3"
-  tag: "latest"
+  tag: "20230331173641-22-main"
 
 resources:
   requests:
