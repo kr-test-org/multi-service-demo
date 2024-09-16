@@ -12,5 +12,5 @@
 │   ├── service3 # service3 完整的配置
 │   └── template.yaml # service1/service2/service3 的 K8s YAML 服务模板
 ├── src # 服务源代码
-└── values # 使用 base-chart 模板批量创建服务时，多个服务的 values 文件
+└── values # 使用 base-chart 模板批量创建服务时，多个服务的 values 文件d
 ```
