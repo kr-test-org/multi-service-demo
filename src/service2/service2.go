@@ -18,6 +18,7 @@ package main
 
 import (
 	"fmt"
+	"log"
 	"net/http"
 )
 
@@ -36,9 +37,9 @@ func headers(w http.ResponseWriter, req *http.Request) {
 }
 
 func main() {
-
+	log.Println("Starting server on :20222")
 	http.HandleFunc("/", hello)
 	http.HandleFunc("/headers", headers)
 
-	http.ListenAndServe(":20221", nil)
+	http.ListenAndServe(":20222", nil)
 }
