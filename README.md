@@ -1,5 +1,5 @@
 `multi-service-demo` 目录结构说明：
-aaaaa
+aaaaaaaaaaaa
 ``` bash
 ├── Dockerfile # Dockerfile，也可以作为 Dockerfile 模板，构建镜像时需要通过 --build-arg service=<值> 指定 service 参数的值
 ├── Makefile # 构建工程文件，构建时使用 make build-service* 即可
