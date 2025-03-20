@@ -1,3 +1,4 @@
+a: b
 fullnameOverride: service3
 replicaCount: 1
 port: 22222
