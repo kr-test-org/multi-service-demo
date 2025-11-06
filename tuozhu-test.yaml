@@ -1,6 +1,6 @@
 postInstallHook:
   enabled: true
-  sleepSeconds: 20
+  sleepSeconds: 22
 server:
   resources:
     requests:
