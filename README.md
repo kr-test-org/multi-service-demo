@@ -14,3 +14,4 @@
 ├── src # 服务源代码
 └── values # 使用 base-chart 模板批量创建服务时，多个服务的 values 文件
 ```
+test
