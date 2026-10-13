@@ -2,6 +2,7 @@ fullnameOverride: service1
 replicaCount: 1
 port: 20221
 test: 222
+test1: 111
 
 imagePullSecretsName: "default-registry-secret"
 
