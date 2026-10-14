@@ -18,3 +18,4 @@ resources:
     mem: 20Mi
 test-test: helm-chart
 test-test1: helm
+test: 11
