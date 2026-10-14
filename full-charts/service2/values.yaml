@@ -17,3 +17,4 @@ resources:
     cpu: 20m
     mem: 20Mi
 test-test: helm-chart
+test-test1: helm
