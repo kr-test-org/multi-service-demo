@@ -16,6 +16,4 @@ resources:
   limits:
     cpu: 20m
     mem: 20Mi
-test-test: helm-chart
-test-test1: helm
-test: 11
+test-global-var: 11
