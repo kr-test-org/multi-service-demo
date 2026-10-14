@@ -15,6 +15,7 @@ resources:
     mem: 10Mi
 
   limits:
-    cpu: 20m
+    cpu: 66m
     mem: 77Mi
 test: 11
+test: 22
