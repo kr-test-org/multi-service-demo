@@ -7,7 +7,7 @@ imagePullSecretsName: "default-registry-secret"
 
 image:
   repository: "koderover.tencentcloudcr.com/koderover-demo/service2"
-  tag: "latest"
+  tag: ""
 
 resources:
   requests:
