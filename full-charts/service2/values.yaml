@@ -1,4 +1,4 @@
-# test hook
+
 fullnameOverride: service2
 replicaCount: 1
 port: 20222
@@ -7,7 +7,7 @@ imagePullSecretsName: "default-registry-secret"
 
 image:
   repository: "koderover.tencentcloudcr.com/koderover-demo/service2"
-  tag: "latest"
+  tag: ""
 
 resources:
   requests:
