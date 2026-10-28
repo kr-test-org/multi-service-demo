@@ -15,6 +15,6 @@ resources:
 
   limits:
     cpu: 60m
-    mem: 66Mi
+    mem: 88Mi
 test: 55
 chart: 11
