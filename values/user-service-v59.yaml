@@ -1,0 +1,9 @@
+app:
+  name: user-service
+image: "192.168.102.238/new-saas-gray/user-service:v59"
+imagePullPolicy: Always
+container:
+  name: ""
+workload:
+  kind: Rollout
+  replicas: 1
