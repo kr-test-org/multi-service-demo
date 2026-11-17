@@ -1,0 +1,38 @@
+app:
+  name: user-service
+image: ""
+imagePullPolicy: Always
+container:
+  name: ""
+  ports:
+    - name: http
+      containerPort: 8080
+      protocol: TCP
+    - name: grpc
+      containerPort: 50051
+      protocol: TCP
+workload:
+  enabled: true
+  kind: Rollout
+  replicas: 1
+  minReadySeconds: 10
+  revisionHistoryLimit: 1
+rollout:
+  steps:
+    - setWeight: 25
+    - pause: {}
+    - setWeight: 50
+    - pause: {}
+    - setWeight: 100
+services:
+  enabled: true
+  ports:
+    - name: http
+      port: 8080
+      targetPort: 8080
+      protocol: TCP
+    - name: grpc
+      port: 50051
+      targetPort: 50051
+      protocol: TCP
+resources: {}

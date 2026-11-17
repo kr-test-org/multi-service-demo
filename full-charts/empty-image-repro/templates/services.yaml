@@ -1,0 +1,17 @@
+{{- if .Values.services.enabled }}
+{{- $root := . }}
+{{- $name := include "repro.name" . }}
+{{- range $suffix := list "" "-stable" "-canary" }}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ $name }}{{ $suffix }}
+spec:
+  selector:
+    app.kubernetes.io/name: {{ $name }}
+    app.kubernetes.io/instance: {{ $root.Release.Name }}
+  ports:
+    {{- toYaml $root.Values.services.ports | nindent 4 }}
+{{- end }}
+{{- end }}
