@@ -29,5 +29,5 @@ spec:
           resources:
             limits:
               memory: 10Mi
-              cpu: 10m
+              cpu: 30m
      
