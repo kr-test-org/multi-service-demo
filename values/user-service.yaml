@@ -1,0 +1,276 @@
+app:
+  annotations: {}
+  labels: {}
+  name: user-service
+configMaps:
+  checksum: true
+  enabled: false
+  items: {}
+container:
+  args: []
+  command: []
+  lifecycle: {}
+  name: ""
+  ports:
+    - containerPort: 8080
+      name: http
+      protocol: TCP
+    - containerPort: 50051
+      name: grpc
+      protocol: TCP
+  securityContext:
+    allowPrivilegeEscalation: false
+    capabilities:
+      add:
+        - CHOWN
+        - SETGID
+        - SETUID
+      drop:
+        - ALL
+  stdin: false
+  tty: false
+  workingDir: ""
+dependencies:
+  redis:
+    enabled: false
+    host: ""
+    hostEnvName: SPRING_DATA_REDIS_HOST
+    passwordSecret:
+      key: password
+      name: ""
+    port: 6379
+    portEnvName: SPRING_DATA_REDIS_PORT
+env: {}
+envFrom: []
+environment:
+  clusterName: ""
+  name: ""
+  serviceNamespace: ""
+extraEnv: []
+extraObjects: []
+hpa:
+  behavior: {}
+  enabled: false
+  maxReplicas: 3
+  metrics:
+    - resource:
+        name: cpu
+        target:
+          averageUtilization: 70
+          type: Utilization
+      type: Resource
+  minReplicas: 1
+httpRoutes:
+  custom: {}
+  enabled: true
+  gateway:
+    annotations: {}
+    backendPort: 8080
+    enabled: false
+    hostnames: []
+    name: ""
+    parentRefs: []
+    path: /
+  mesh:
+    backendPort: 50051
+    enabled: true
+    grayHeader:
+      name: x-lane
+      value: gray
+    name: ""
+    parentPort: 50051
+    path: /
+  shadow:
+    backendPort: 50051
+    canaryWeight: 0
+    enabled: true
+    header:
+      name: x-rollout-shadow
+      value: internal
+    name: ""
+    parentPort: 50051
+    path: /
+    stableWeight: 100
+image: 192.168.102.238/new-saas-gray/user-service:v84
+imagePullPolicy: Always
+java:
+  enabled: false
+  extraOptions: []
+  xms: 256m
+  xmx: 512m
+observability:
+  otel:
+    agentImage: otel/autoinstrumentation-java:2.28.1
+    agentSourcePath: /javaagent.jar
+    enabled: false
+    endpoint: http://otel-router-opentelemetry-collector.observability.svc.cluster.local:4317
+    imagePullPolicy: IfNotPresent
+    logging: simple
+    logsExporter: none
+    metricsExporter: otlp
+    propagators: tracecontext,baggage
+    protocol: grpc
+    resourceAttributes: {}
+    sampler: parentbased_always_on
+    tracesExporter: otlp
+    volumeSizeLimit: 100Mi
+  pyroscope:
+    addProfileBaselineURL: false
+    addProfileURL: false
+    alloc: 512k
+    enabled: false
+    event: itimer
+    extensionImage: ""
+    extensionSourcePath: /extension/pyroscope-otel-javaagent-extension.jar
+    extraArguments: ""
+    extraLabels: {}
+    format: jfr
+    imagePullPolicy: IfNotPresent
+    labelsEnabled: false
+    lock: 10ms
+    logLevel: info
+    profilingInterval: 10ms
+    serverAddress: http://pyroscope-distributor.observability.svc.cluster.local:4040
+    uploadInterval: 15s
+    volumeSizeLimit: 20Mi
+pdb:
+  enabled: true
+  maxUnavailable: 1
+  minAvailable: null
+persistence:
+  enabled: false
+  items: {}
+pod:
+  affinity: {}
+  annotations: {}
+  automountServiceAccountToken: null
+  dnsConfig: {}
+  dnsPolicy: ""
+  extraContainers: []
+  extraInitContainers: []
+  extraVolumeMounts: []
+  extraVolumes: []
+  hostUsers: false
+  imagePullSecrets: []
+  labels: {}
+  nodeSelector: {}
+  priorityClassName: ""
+  securityContext:
+    seccompProfile:
+      type: RuntimeDefault
+  serviceAccountName: ""
+  terminationGracePeriodSeconds: null
+  tolerations: []
+  topologySpread:
+    constraints:
+      - maxSkew: 1
+        topologyKey: kubernetes.io/hostname
+        whenUnsatisfiable: ScheduleAnyway
+    enabled: true
+probes:
+  liveness:
+    enabled: true
+    spec:
+      failureThreshold: 3
+      httpGet:
+        path: /actuator/health/liveness
+        port: 8080
+      initialDelaySeconds: 30
+      periodSeconds: 10
+      timeoutSeconds: 1
+  readiness:
+    enabled: true
+    spec:
+      failureThreshold: 3
+      httpGet:
+        path: /actuator/health/readiness
+        port: 8080
+      initialDelaySeconds: 10
+      periodSeconds: 5
+      timeoutSeconds: 1
+  startup:
+    enabled: false
+    spec: {}
+resources:
+  limits:
+    cpu: "1"
+    memory: 1Gi
+  requests:
+    cpu: 200m
+    memory: 512Mi
+rollout:
+  canaryMetadata:
+    labels:
+      version: gray
+  extraCanary: {}
+  scaleDownDelaySeconds: 1
+  stableMetadata:
+    labels:
+      version: stable
+  steps:
+    - setWeight: 25
+    - pause: {}
+    - setWeight: 50
+    - pause: {}
+    - setWeight: 75
+    - pause: {}
+    - setWeight: 100
+    - pause: {}
+  trafficRouting:
+    enabled: true
+    extraConfig: {}
+    httpRouteName: ""
+    namespace: ""
+    pluginName: argoproj-labs/gatewayAPI
+secrets:
+  checksum: false
+  enabled: false
+  items: {}
+serviceAccount:
+  annotations: {}
+  automountServiceAccountToken: null
+  enabled: false
+  name: ""
+services:
+  canary:
+    annotations: {}
+    enabled: true
+    name: ""
+    ports: []
+    spec: {}
+  enabled: true
+  main:
+    annotations: {}
+    enabled: true
+    name: ""
+    ports: []
+    spec: {}
+  ports:
+    - appProtocol: http
+      name: http
+      port: 8080
+      targetPort: 8080
+    - appProtocol: grpc
+      name: grpc
+      port: 50051
+      targetPort: 50051
+  stable:
+    annotations: {}
+    enabled: true
+    name: ""
+    ports: []
+    spec: {}
+workload:
+  deploymentStrategy: {}
+  enabled: true
+  extraSpec: {}
+  kind: Rollout
+  minReadySeconds: 10
+  replicas: 1
+  revisionHistoryLimit: 1
+  statefulSet:
+    podManagementPolicy: OrderedReady
+    serviceName: ""
+    updateStrategy:
+      type: RollingUpdate
+    volumeClaimTemplates: []

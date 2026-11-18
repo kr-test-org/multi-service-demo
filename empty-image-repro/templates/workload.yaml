@@ -1,0 +1,43 @@
+{{- if .Values.workload.enabled }}
+{{- $name := include "repro.name" . }}
+{{- $kind := .Values.workload.kind }}
+{{- if not (has $kind (list "Rollout" "Deployment")) }}
+{{- fail "workload.kind must be Rollout or Deployment" }}
+{{- end }}
+apiVersion: {{ if eq $kind "Rollout" }}argoproj.io/v1alpha1{{ else }}apps/v1{{ end }}
+kind: {{ $kind }}
+metadata:
+  name: {{ $name }}
+spec:
+  replicas: {{ .Values.workload.replicas }}
+  minReadySeconds: {{ .Values.workload.minReadySeconds }}
+  revisionHistoryLimit: {{ .Values.workload.revisionHistoryLimit }}
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: {{ $name }}
+      app.kubernetes.io/instance: {{ .Release.Name }}
+{{- if eq $kind "Rollout" }}
+  strategy:
+    canary:
+{{- if .Values.services.enabled }}
+      stableService: {{ $name }}-stable
+      canaryService: {{ $name }}-canary
+{{- end }}
+      steps:
+        {{- toYaml .Values.rollout.steps | nindent 8 }}
+{{- end }}
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: {{ $name }}
+        app.kubernetes.io/instance: {{ .Release.Name }}
+    spec:
+      containers:
+        - name: {{ default $name .Values.container.name }}
+          image: {{ .Values.image | quote }}
+          imagePullPolicy: {{ .Values.imagePullPolicy }}
+          ports:
+            {{- toYaml .Values.container.ports | nindent 12 }}
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
+{{- end }}

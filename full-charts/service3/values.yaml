@@ -1,4 +1,4 @@
-fullnameOverride: service1
+fullnameOverride: service3
 replicaCount: 1
 port: 20223
 
@@ -16,3 +16,4 @@ resources:
   limits:
     cpu: 20m
     mem: 20Mi
+test: 11
