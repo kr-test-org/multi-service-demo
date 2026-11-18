@@ -5,7 +5,6 @@ metadata:
   labels: 
     app.kubernetes.io/name: demo
     app.kubernetes.io/instance: service3
-    zadig-istio-release-version: original
 spec:
   selector:
     matchLabels:
@@ -17,6 +16,7 @@ spec:
       labels:
         app.kubernetes.io/name: demo
         app.kubernetes.io/instance: service3
+        zadig-istio-release-version: original
     spec:
       containers:
         - name: service3
